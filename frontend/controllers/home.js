@@ -1,7 +1,26 @@
 angular.module('MyApp')
     .controller('HomeCtrl', function ($scope, $http, uiGmapGoogleMapApi, uiGmapIsReady, $compile, $uibModal) {
+        $scope.boundsChangedEvent = null;
+
+        $scope.handleBoundsChanged = function (obj) {
+            clearTimeout($scope.boundsChangedEvent);
+            $scope.boundsChangedEvent = setTimeout(function () {
+                console.log(obj.getBounds().getSouthWest().lat());
+                console.log(obj.getBounds().getSouthWest().lng());
+                console.log(obj.getBounds().getNorthEast().lat());
+                console.log(obj.getBounds().getNorthEast().lng());
+            }, 500);
+        };
+
         uiGmapGoogleMapApi.then(function (maps) {
-            $scope.map = { control: {}, center: { latitude: 41.0136, longitude: 28.9550 }, zoom: 15 };
+            $scope.map = {
+                control: {}, center: {latitude: 41.0136, longitude: 28.9550}, zoom: 15,
+                events: {
+                    bounds_changed: function (a) {
+                        $scope.handleBoundsChanged(a);
+                    }
+                }
+            };
             var input = /** @type {!HTMLInputElement} */(
                 document.getElementById('pac-input'));
 
@@ -80,7 +99,8 @@ angular.module('MyApp')
             $scope.animationsEnabled = !$scope.animationsEnabled;
         };
     })
-    .controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, place) {
+    .
+    controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, place) {
         $scope.data = {
             id: place.id,
             name: place.name,

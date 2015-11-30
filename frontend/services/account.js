@@ -16,6 +16,28 @@ angular.module('MyApp')
             },
             addFriend: function (email) {
                 return $http.post(window.backendUrl + '/addFriend', email);
-            }
+            },
+            checkIn: function (checkIn) {
+???????
+            },
+            getCheckInList: function (latSW, lngSW, latNE, lngNE) {
+                return $http({
+                    method: 'POST',
+                    url: window.backendUrl + '/getCheckInList',
+                    params: {
+                        latSW: latSW,
+                        lngSW: lngSW,
+                        latNE: latNE,
+                        lngNE: lngNE
+                    }
+                });
+            },
+            saveCheckIn: function (id) {
+                return $http.post(window.backendUrl + '/saveCheckIn', id);
+            },
+            like: function (id) {
+                return $http.post(window.backendUrl + '/like', id);
+            },
+
         }
     });
