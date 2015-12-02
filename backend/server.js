@@ -18,19 +18,12 @@ var jwt = require('jwt-simple');
 var moment = require('moment');
 var mongoose = require('mongoose');
 var request = require('request');
+var Grid = require('gridfs-stream');
+var multer = require('multer');
 
 var config = require('./config');
 var profile = require('./profile');
 
-var userSchema = new mongoose.Schema({
-    email: {type: String, unique: true, lowercase: true},
-    password: {type: String, select: false},
-    displayName: String,
-    picture: String,
-    facebook: String,
-    friends: [String],
-    saved: [CheckIn]
-});
 
 var checkInSchema = new mongoose.Schema({
     placeId: {type: String, lowercase: true},
@@ -41,8 +34,20 @@ var checkInSchema = new mongoose.Schema({
     comment: String,
     date: Date,
     likes: []
-})
+});
+var CheckIn = mongoose.model('CheckIn', checkInSchema);
 
+
+var userSchema = new mongoose.Schema({
+    email: {type: String, unique: true, lowercase: true},
+    password: {type: String, select: false},
+    displayName: String,
+    picture: String,
+    facebook: String,
+    friends: [String],
+    photo: String,
+    saved: [CheckIn]
+});
 
 userSchema.pre('save', function (next) {
     var user = this;
@@ -64,14 +69,19 @@ userSchema.methods.comparePassword = function (password, done) {
 };
 
 var User = mongoose.model('User', userSchema);
-var CheckIn = mongoose.model('CheckIn', checkInSchema);
+
 
 mongoose.connect(config.MONGO_URI);
 mongoose.connection.on('error', function (err) {
     console.log('Error: Could not connect to MongoDB. Did you forget to run `mongod`?'.red);
 });
 
+
 var app = express();
+
+Grid.mongo = mongoose.mongo
+var gfs = Grid(mongoose.connection.db);
+app.set('gridfs', gfs);
 
 app.set('port', process.env.PORT || 3000);
 app.use(cors());
@@ -125,6 +135,8 @@ function populateUser(req, res, next) {
         next();
     });
 }
+
+
 
 /*
  |--------------------------------------------------------------------------
@@ -210,6 +222,20 @@ app.post('/auth/signup', function (req, res) {
     });
 });
 
+app.post('/upload', ensureAuthenticated, function (req, res, next) {
+    var handler = multer({
+        dest: './uploads/',
+        rename: function (fieldname, filename) {
+            return filename.replace(/\W+/g, '-').toLowerCase() + Date.now()
+        },
+        onFileUploadComplete: function (file) {
+            User.update({_id: req.user}, {photo: file.fileName}, function(err, user) {
+            });
+        }
+    });
+    handler(req, res, next);
+});
+
 app.get('/searchFriend', ensureAuthenticated, function (req, res) {
     User.find({displayName: new RegExp(req.query.query, 'i')}, function (err, userList) {
         console.log(err);
@@ -221,16 +247,29 @@ app.get('/searchFriend', ensureAuthenticated, function (req, res) {
     });
 });
 
+app.get('/getUsers', ensureAuthenticated, function (req, res) {
+    User.find({}, function (err, users) {
+        if (!err) {
+            res.status(200).send(users);
+        } else {
+            console.log(err);
+            res.status(400).send(err);
+        }
+    });
+});
+
 app.post('/addFriend', ensureAuthenticated, populateUser, function (req, res) {
-    User.findOne({email: req.body.email}, function (err, user) {
+    User.findOne({_id: req.body.id}, function (err, user) {
         if (user) {
-            console.log(req.user);
-            req.userInfo.friends.push(user.email);
-            User.update({_id: req.user._id}, req.userInfo, function (err, affected, resp) {
+            console.log(user.email);
+            User.update({email: req.userInfo.email}, {$addToSet: {friends: user._id}}, function (err, affected, resp) {
                 if (!err) {
-                    res.status(200).send(req.userInfo);
+                    User.findOne({email: req.userInfo.email}, function (err, user) {
+                        res.status(200).send(user);
+                    });
                 } else {
                     console.log(err);
+                    res.status(400).send(err);
                 }
             });
 
@@ -284,16 +323,21 @@ app.post('/like', ensureAuthenticated, populateUser, function (req, res) {
     });
 });
 
-app.post('/getCheckInList', ensureAuthenticated, function (req, res) {
+app.post('/getCheckInList', ensureAuthenticated, populateUser, function (req, res) {
     var latSW = req.body.latSW;
     var lngSW = req.body.lngSW;
     var latNE = req.body.latNE;
     var lngNE = req.body.lngNE;
 
-    console.log(latSW, lngSW, latNE, lngNE);
-
-    CheckIn.find({lat: {$gt: latSW, $lt: latNE}, lng: {$gt: lngSW, $lt: lngNE}}, function (err, result) {
+    var friends = req.userInfo.friends;
+    console.log(friends);
+    CheckIn.find({lat: {$gt: latSW, $lt: latNE}, lng: {$gt: lngSW, $lt: lngNE}, userId: {$in: friends}}, function (err, result) {
         if (!err) {
+            for (var c in results) {
+                User.find({_id: c.userId}, function (err, result) {
+                    c.photo = result.photo;
+                });
+            }
             res.status(200).send(result);
         } else {
             console.log(err);

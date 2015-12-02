@@ -33,48 +33,8 @@
     </ul>
 </div>
 
-<div class="container" ng-controller="NavbarCtrl">
-    <div ui-view ng-class="isAuthenticated() ? 'col-lg-9' : 'col-lg-12'"  class="panel panel-default" style="padding: 0 !important;"></div>
-    <div class="col-sm-3" ng-if="isAuthenticated()">
-        <div class="panel panel-default"  style="height: 90vh;">
-            <div class="panel-heading">Home Page</div>
-            <div class="panel-body">
-                <ul class="comment-list" style="height: 100%;">
-                    <li>
-                        <div class="commenter-image">
-                            <img src="http://lorempixel.com/50/50/people/6"/>
-                        </div>
-                        <div class="comment-text">
-                            <p class="">Hello this is a test comment.</p> <span
-                                class="date sub-text">on March 5th, 2014</span>
+<div class="container" ui-view ng-controller="NavbarCtrl">
 
-                        </div>
-                    </li>
-                    <li>
-                        <div class="commenter-image">
-                            <img src="http://lorempixel.com/50/50/people/7"/>
-                        </div>
-                        <div class="comment-text">
-                            <p class="">Hello this is a test comment and this comment is particularly very long and
-                                it goes on and on and on.</p> <span class="date sub-text">on March 5th, 2014</span>
-
-                        </div>
-                    </li>
-                    <li>
-                        <div class="commenter-image">
-                            <img src="http://lorempixel.com/50/50/people/9"/>
-                        </div>
-                        <div class="comment-text">
-                            <p class="">Hello this is a test comment.</p> <span
-                                class="date sub-text">on March 5th, 2014</span>
-
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-    </div>
 </div>
 <!-- Third-party Libraries -->
 <script src="vendor/angular.js"></script>

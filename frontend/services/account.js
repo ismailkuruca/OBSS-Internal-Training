@@ -4,8 +4,14 @@ angular.module('MyApp')
             getProfile: function () {
                 return $http.get(window.backendUrl + '/api/me');
             },
+            getCurrentUser: function () {
+                return $http.get(window.backendUrl + '/api/me');
+            },
             updateProfile: function (profileData) {
                 return $http.put(window.backendUrl + '/api/me', profileData);
+            },
+            getUserList: function () {
+                return $http.get(window.backendUrl + '/getUsers');
             }
         };
     })
@@ -14,17 +20,33 @@ angular.module('MyApp')
             searchFriend: function (query) {
                 return $http.post(window.backendUrl + '/searchFriend', query);
             },
-            addFriend: function (email) {
-                return $http.post(window.backendUrl + '/addFriend', email);
+            addFriend: function (id) {
+                return $http({
+                    method: 'POST',
+                    data: {
+                        id: id
+                    },
+                    url: window.backendUrl + '/addFriend',
+                });
             },
             checkIn: function (checkIn) {
-???????
+                return $http({
+                    method: 'POST',
+                    url: window.backendUrl + '/checkIn',
+                    data: {
+                        id: checkIn.id,
+                        placeName: checkIn.name,
+                        lat: checkIn.lat,
+                        lng: checkIn.lng,
+                        comment: checkIn.comment
+                    }
+                });
             },
             getCheckInList: function (latSW, lngSW, latNE, lngNE) {
                 return $http({
                     method: 'POST',
                     url: window.backendUrl + '/getCheckInList',
-                    params: {
+                    data: {
                         latSW: latSW,
                         lngSW: lngSW,
                         latNE: latNE,
@@ -37,7 +59,7 @@ angular.module('MyApp')
             },
             like: function (id) {
                 return $http.post(window.backendUrl + '/like', id);
-            },
+            }
 
         }
     });

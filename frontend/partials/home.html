@@ -1,6 +1,25 @@
-<div class="">
+<div ng-class="isAuthenticated() ? 'col-lg-9' : 'col-lg-12'" class="panel panel-default" style="padding: 0 !important;">
     <ui-gmap-google-map events="map.events" control="map.control" center='map.center' zoom='map.zoom'>
         <input id="pac-input" class="controls" type="text"
                placeholder="Enter a Location">
     </ui-gmap-google-map>
+</div>
+<div class="col-sm-3" ng-if="isAuthenticated()">
+    <div class="panel panel-default" style="height: 90vh;">
+        <div class="panel-heading">Home Page</div>
+        <div class="panel-body">
+            <ul class="comment-list" style="height: 100%;">
+                <li ng-repeat="checkIn in checkInList">
+                    <div class="commenter-image">
+                        <img src="http://lorempixel.com/50/50/people/6"/>
+                    </div>
+                    <div class="comment-text">
+                        <p class="">{{checkIn.comment}}</p> <span
+                            class="date sub-text">on {{checkIn.date | date :'medium'}}</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
 </div>

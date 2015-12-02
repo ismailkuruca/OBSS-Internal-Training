@@ -1,14 +1,25 @@
 angular.module('MyApp')
-    .controller('HomeCtrl', function ($scope, $http, uiGmapGoogleMapApi, uiGmapIsReady, $compile, $uibModal) {
+    .controller('HomeCtrl', function ($scope, $auth, uiGmapGoogleMapApi, uiGmapIsReady, $compile, $uibModal, Dashboard) {
         $scope.boundsChangedEvent = null;
+        $scope.placeMap = {};
+        $scope.elems = ["a","aa","baa"];
 
         $scope.handleBoundsChanged = function (obj) {
             clearTimeout($scope.boundsChangedEvent);
             $scope.boundsChangedEvent = setTimeout(function () {
-                console.log(obj.getBounds().getSouthWest().lat());
-                console.log(obj.getBounds().getSouthWest().lng());
-                console.log(obj.getBounds().getNorthEast().lat());
-                console.log(obj.getBounds().getNorthEast().lng());
+                console.log(obj);
+                Dashboard.getCheckInList(
+                        obj.getBounds().getSouthWest().lat(),
+                        obj.getBounds().getSouthWest().lng(),
+                        obj.getBounds().getNorthEast().lat(),
+                        obj.getBounds().getNorthEast().lng())
+                    .then(function (response) {
+                        console.log("CheckinList", response);
+                        $scope.checkInList = response.data;
+                    }
+                    , function (error) {
+                        //Error Handling
+                    });
             }, 500);
         };
 
@@ -63,6 +74,7 @@ angular.module('MyApp')
                     }));
                     marker.setPosition(place.geometry.location);
                     marker.setVisible(true);
+                    $scope.placeMap[place.id] = place;
                     var elem = '<div><strong>' + place.name + '</strong><br><button class="btn check-in" ng-click="checkIn(\'' + place.id + '\')">CHECK-IN</button>';
                     elem = $compile(elem)($scope);
                     infowindow.setContent(elem[0]);
@@ -74,6 +86,10 @@ angular.module('MyApp')
 
         $scope.animationsEnabled = true;
 
+        $scope.isAuthenticated = function() {
+            return $auth.isAuthenticated();
+        };
+
         $scope.open = function (place) {
 
             var modalInstance = $uibModal.open({
@@ -83,13 +99,17 @@ angular.module('MyApp')
                 size: 'sm',
                 resolve: {
                     place: function () {
-                        return place;
+                        return $scope.placeMap[place];
                     }
                 }
             });
 
             modalInstance.result.then(function (data) {
-                console.log(data);
+                Dashboard.checkIn(data).then(function(response) {
+                    console.log(response);
+                }, function(error) {
+                   // ERROR Handling
+                });
             }, function () {
                 $log.info('Modal dismissed at: ' + new Date());
             });
