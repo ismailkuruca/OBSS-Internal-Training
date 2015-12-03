@@ -11,10 +11,10 @@
             <ul class="comment-list" style="height: 100%;">
                 <li ng-repeat="checkIn in checkInList">
                     <div class="commenter-image">
-                        <img src="http://lorempixel.com/50/50/people/6"/>
+                        <img ng-src="{{checkIn.userPhoto}}"/>
                     </div>
                     <div class="comment-text">
-                        <p class="">{{checkIn.comment}}</p> <span
+                        <p class="" style="font-weight: bolder;">{{checkIn.userName}}</p> <p class="">{{checkIn.comment}}</p> <span
                             class="date sub-text">on {{checkIn.date | date :'medium'}}</span>
                     </div>
                 </li>

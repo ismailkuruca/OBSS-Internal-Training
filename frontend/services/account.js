@@ -12,8 +12,19 @@ angular.module('MyApp')
             },
             getUserList: function () {
                 return $http.get(window.backendUrl + '/getUsers');
-            }
-        };
+            },
+            getFriendList: function() {
+                return $http.get(window.backendUrl + '/getFriendList');
+            },
+            uploadPhoto: function (fd) {
+                return $http({
+                    method: 'POST',
+                    url: window.backendUrl + '/uploadPhoto',
+                    data: {
+                        photo: fd
+                    }
+                });
+            }}
     })
     .factory('Dashboard', function ($http) {
         return {

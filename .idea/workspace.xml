@@ -4,17 +4,18 @@
     <list default="true" id="a9c13c63-2c2f-49b0-b3bf-3fe93cdb96f1" name="Default" comment="" />
     <ignored path="OBSS Internal Training.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/account.js" changelist="a9c13c63-2c2f-49b0-b3bf-3fe93cdb96f1" time="1448986875052" ignored="false" />
+    <file path="/account.js" changelist="a9c13c63-2c2f-49b0-b3bf-3fe93cdb96f1" time="1449136529099" ignored="false" />
     <file path="/home.js" changelist="a9c13c63-2c2f-49b0-b3bf-3fe93cdb96f1" time="1449065097013" ignored="false" />
-    <file path="/server.js" changelist="a9c13c63-2c2f-49b0-b3bf-3fe93cdb96f1" time="1449069010655" ignored="false" />
+    <file path="/server.js" changelist="a9c13c63-2c2f-49b0-b3bf-3fe93cdb96f1" time="1449155077777" ignored="false" />
     <file path="/checkin.html" changelist="a9c13c63-2c2f-49b0-b3bf-3fe93cdb96f1" time="1448963250943" ignored="false" />
-    <file path="/home.html" changelist="a9c13c63-2c2f-49b0-b3bf-3fe93cdb96f1" time="1449065222116" ignored="false" />
-    <file path="/app.js" changelist="a9c13c63-2c2f-49b0-b3bf-3fe93cdb96f1" time="1448971885543" ignored="false" />
-    <file path="/index.html" changelist="a9c13c63-2c2f-49b0-b3bf-3fe93cdb96f1" time="1449065045445" ignored="false" />
-    <file path="/profile.html" changelist="a9c13c63-2c2f-49b0-b3bf-3fe93cdb96f1" time="1448980017933" ignored="false" />
-    <file path="/profile.js" changelist="a9c13c63-2c2f-49b0-b3bf-3fe93cdb96f1" time="1448986884344" ignored="false" />
+    <file path="/home.html" changelist="a9c13c63-2c2f-49b0-b3bf-3fe93cdb96f1" time="1449154947635" ignored="false" />
+    <file path="/app.js" changelist="a9c13c63-2c2f-49b0-b3bf-3fe93cdb96f1" time="1449133906404" ignored="false" />
+    <file path="/index.html" changelist="a9c13c63-2c2f-49b0-b3bf-3fe93cdb96f1" time="1449129537903" ignored="false" />
+    <file path="/profile.html" changelist="a9c13c63-2c2f-49b0-b3bf-3fe93cdb96f1" time="1449144452272" ignored="false" />
+    <file path="/profile.js" changelist="a9c13c63-2c2f-49b0-b3bf-3fe93cdb96f1" time="1449144483537" ignored="false" />
     <file path="/login.js" changelist="a9c13c63-2c2f-49b0-b3bf-3fe93cdb96f1" time="1448978729267" ignored="false" />
     <file path="/signup.js" changelist="a9c13c63-2c2f-49b0-b3bf-3fe93cdb96f1" time="1448978722097" ignored="false" />
+    <file path="/passwordMatch.js" changelist="a9c13c63-2c2f-49b0-b3bf-3fe93cdb96f1" time="1449129502345" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,33 +35,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="36" column="4" selection-start="1703" selection-end="1703" vertical-scroll-proportion="-14.741936">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="navbar.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend/controllers/navbar.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="12" selection-start="81" selection-end="164" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="logout.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend/controllers/logout.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="home.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frontend/controllers/home.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -70,19 +44,39 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="checkin.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend/partials/checkin.html">
+      <file leaf-file-name="profile.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frontend/partials/profile.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="74" selection-start="352" selection-end="352" vertical-scroll-proportion="-4.967742">
+            <state line="17" column="44" selection-start="762" selection-end="762" vertical-scroll-proportion="-12.064516">
+              <folding>
+                <element signature="n#style#0;n#input#0;n#div#0;n#form#0;n#div#1;n#div#1;n#div#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="app.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frontend/app.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="12" column="110" selection-start="492" selection-end="492" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="profile.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend/partials/profile.html">
+      <file leaf-file-name="fileChange.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frontend/directives/fileChange.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="82" selection-start="737" selection-end="737" vertical-scroll-proportion="-9.225806">
+            <state line="22" column="0" selection-start="638" selection-end="638" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="profile.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frontend/controllers/profile.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="9" column="62" selection-start="445" selection-end="445" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -91,25 +85,16 @@
       <file leaf-file-name="server.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/backend/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="225" column="66" selection-start="6333" selection-end="6333" vertical-scroll-proportion="0.58878505">
+            <state line="35" column="22" selection-start="884" selection-end="884" vertical-scroll-proportion="0.50416666">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="account.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend/services/account.js">
+      <file leaf-file-name="index.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/backend/node_modules/mongoose/node_modules/kareem/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="105" selection-start="995" selection-end="995" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="login.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend/partials/login.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+            <state line="176" column="18" selection-start="4071" selection-end="4071" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -118,12 +103,29 @@
       <file leaf-file-name="home.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frontend/partials/home.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="69" selection-start="471" selection-end="471" vertical-scroll-proportion="-2.6774194">
+            <state line="22" column="40" selection-start="1176" selection-end="1176" vertical-scroll-proportion="-11.354838">
               <folding>
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#div#1;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#ul#0;n#div#1;n#div#0;n#div#1;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#p#0;n#div#1;n#li#0;n#ul#0;n#div#1;n#div#0;n#div#1;n#!!top" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EcmaScript.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavascriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/EcmaScript.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="61" column="0" selection-start="871" selection-end="871" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="account.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frontend/services/account.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="17" column="14" selection-start="716" selection-end="716" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -141,14 +143,16 @@
         <option value="$PROJECT_DIR$/frontend/partials/checkin.html" />
         <option value="$PROJECT_DIR$/frontend/vendor/angular.typeahead.min.js" />
         <option value="$PROJECT_DIR$/frontend/vendor/angular-typeahead.min.js" />
-        <option value="$PROJECT_DIR$/frontend/app.js" />
         <option value="$PROJECT_DIR$/frontend/controllers/signup.js" />
         <option value="$PROJECT_DIR$/frontend/controllers/login.js" />
-        <option value="$PROJECT_DIR$/frontend/partials/profile.html" />
-        <option value="$PROJECT_DIR$/frontend/services/account.js" />
-        <option value="$PROJECT_DIR$/frontend/controllers/profile.js" />
-        <option value="$PROJECT_DIR$/frontend/index.html" />
         <option value="$PROJECT_DIR$/frontend/controllers/home.js" />
+        <option value="$PROJECT_DIR$/frontend/directives/passwordMatch.js" />
+        <option value="$PROJECT_DIR$/frontend/index.html" />
+        <option value="$PROJECT_DIR$/frontend/directives/fileChange.js" />
+        <option value="$PROJECT_DIR$/frontend/app.js" />
+        <option value="$PROJECT_DIR$/frontend/services/account.js" />
+        <option value="$PROJECT_DIR$/frontend/partials/profile.html" />
+        <option value="$PROJECT_DIR$/frontend/controllers/profile.js" />
         <option value="$PROJECT_DIR$/frontend/partials/home.html" />
         <option value="$PROJECT_DIR$/backend/server.js" />
       </list>
@@ -263,6 +267,24 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="directives" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="OBSS Internal Training" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="OBSS Internal Training" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="controllers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -308,7 +330,42 @@
       <option name="testName" />
       <method />
     </configuration>
+    <configuration default="true" type="JSTestDriver:ConfigurationType" factoryName="JsTestDriver">
+      <setting name="configLocationType" value="CONFIG_FILE" />
+      <setting name="settingsFile" value="" />
+      <setting name="serverType" value="INTERNAL" />
+      <setting name="preferredDebugBrowser" value="CHROME" />
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeunitConfigurationType" factoryName="Nodeunit">
+      <setting name="nodePath" value="C:/Program Files/nodejs/node" />
+      <envs />
+      <setting name="passParentEnvVars" value="true" />
+      <setting name="nodeunitModuleDir" value="" />
+      <setting name="workingDirectory" value="$PROJECT_DIR$" />
+      <setting name="testType" value="JS_FILE" />
+      <setting name="jsFile" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeJSRemoteDebug" factoryName="Node.js Remote Debug">
+      <node-js-remote-debug />
+      <method />
+    </configuration>
     <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="C:/Program Files/nodejs/node" working-dir="$PROJECT_DIR$">
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugSession" factoryName="Remote" singleton="true">
+      <JSRemoteDebuggerConfigurationSettings>
+        <option name="engineId" />
+        <option name="fileUrl" />
+      </JSRemoteDebuggerConfigurationSettings>
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugSession" factoryName="Local" singleton="true">
+      <JSDebuggerConfigurationSettings>
+        <option name="engineId" />
+        <option name="fileUrl" />
+      </JSDebuggerConfigurationSettings>
       <method />
     </configuration>
     <configuration default="false" name="server.js" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="C:/Program Files/nodejs/node" path-to-js-file="server.js" working-dir="$PROJECT_DIR$/backend">
@@ -333,16 +390,16 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-4" y="-4" width="1928" height="1056" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21677215" sideWeight="0.74307865" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21677215" sideWeight="0.56367666" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39977852" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25692138" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25692138" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25692138" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.43632337" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -414,66 +471,10 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="4" />
+      <option name="time" value="5" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/frontend/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="43" selection-start="653" selection-end="653" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/profile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/partials/signup.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/controllers/signup.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="52" selection-start="76" selection-end="76" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/controllers/login.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="51" selection-start="75" selection-end="75" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/controllers/profile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="112" selection-start="665" selection-end="665" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/partials/profile.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="82" selection-start="737" selection-end="737" vertical-scroll-proportion="-9.225806">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/partials/login.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/frontend/partials/checkin.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="7" column="74" selection-start="352" selection-end="352" vertical-scroll-proportion="-4.967742">
@@ -488,23 +489,81 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/services/account.js">
+    <entry file="file://$PROJECT_DIR$/frontend/controllers/navbar.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="105" selection-start="995" selection-end="995" vertical-scroll-proportion="0.0">
+        <state line="4" column="12" selection-start="81" selection-end="164" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/frontend/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="4" selection-start="1703" selection-end="1703" vertical-scroll-proportion="-14.741936">
+        <state line="56" column="39" selection-start="2686" selection-end="2686" vertical-scroll-proportion="-9.774194">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/controllers/navbar.js">
+    <entry file="file://$PROJECT_DIR$/frontend/directives/passwordMatch.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="12" selection-start="81" selection-end="164" vertical-scroll-proportion="0.0">
+        <state line="16" column="0" selection-start="576" selection-end="576" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/directives/fileChange.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="0" selection-start="638" selection-end="638" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="110" selection-start="492" selection-end="492" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/services/account.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="14" selection-start="716" selection-end="716" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/node_modules/mongoose/lib/model.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1184" column="26" selection-start="31211" selection-end="31211" vertical-scroll-proportion="0.33227345">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavascriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/EcmaScript.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="61" column="0" selection-start="871" selection-end="871" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/partials/profile.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="44" selection-start="762" selection-end="762" vertical-scroll-proportion="-12.064516">
+          <folding>
+            <element signature="n#style#0;n#input#0;n#div#0;n#form#0;n#div#1;n#div#1;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/controllers/profile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="62" selection-start="445" selection-end="445" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/node_modules/mongoose/node_modules/kareem/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="176" column="18" selection-start="4071" selection-end="4071" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -518,18 +577,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/frontend/partials/home.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="69" selection-start="471" selection-end="471" vertical-scroll-proportion="-2.6774194">
+        <state line="22" column="40" selection-start="1176" selection-end="1176" vertical-scroll-proportion="-11.354838">
           <folding>
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#1;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#ul#0;n#div#1;n#div#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#0;n#div#1;n#li#0;n#ul#0;n#div#1;n#div#0;n#div#1;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/backend/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="225" column="66" selection-start="6333" selection-end="6333" vertical-scroll-proportion="0.58878505">
+        <state line="35" column="22" selection-start="884" selection-end="884" vertical-scroll-proportion="0.50416666">
           <folding />
         </state>
       </provider>

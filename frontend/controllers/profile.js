@@ -2,10 +2,13 @@ angular.module('MyApp')
     .controller('ProfileCtrl', function ($rootScope, $scope, $auth, toastr, Account, Dashboard) {
         $scope.users = [];
         $scope.selectedUser = null;
-
+        $scope.photo;
 
         Account.getCurrentUser().then(function (response) {
             $rootScope.currentUser = response.data;
+            Account.getFriendList().then(function (response) {
+                $rootScope.currentUser.friends = response.data;
+            });
         }, function (error) {
             console.log(error);
         });
@@ -19,12 +22,36 @@ angular.module('MyApp')
         $scope.addFriend = function () {
             if ($scope.selectedUser) {
                 Dashboard.addFriend($scope.selectedUser._id).then(function (response) {
-                    $rootScope.currentUser = response.data;
-                },
-                function (error) {
-                    console.log(error);
-                });
+                        $rootScope.currentUser = response.data;
+                        Account.getFriendList().then(function (response) {
+                            $rootScope.currentUser.friends = response.data;
+                        });
+                    },
+                    function (error) {
+                        console.log(error);
+                    });
             }
+        };
+
+        $scope.triggerUpload = function () {
+            document.getElementById('photos').click();
+            console.log("trig");
+        };
+
+        $scope.uploadPhoto = function () {
+            var fr = new FileReader();
+            var file = document.getElementById('photos').files[0];
+            fr.onloadend = function () {
+                var result = fr.result;
+                Account.uploadPhoto(result).then(function (response) {
+                    document.getElementById('avatar').src = result;
+                    toastr.success('Profile picture has been updated');
+                }, function (error) {
+                    console.log(error);
+                })
+            };
+
+            fr.readAsDataURL(file);
         };
 
         $scope.getProfile = function () {

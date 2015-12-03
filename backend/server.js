@@ -31,6 +31,9 @@ var checkInSchema = new mongoose.Schema({
     lat: Number,
     lng: Number,
     userId: String,
+    userName: String,
+    userEmail: String,
+    userPhoto: String,
     comment: String,
     date: Date,
     likes: []
@@ -86,7 +89,7 @@ app.set('gridfs', gfs);
 app.set('port', process.env.PORT || 3000);
 app.use(cors());
 app.use(logger('dev'));
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '2mb'}));
 app.use(bodyParser.urlencoded({extended: true}));
 
 // Force HTTPS on Heroku
@@ -135,7 +138,6 @@ function populateUser(req, res, next) {
         next();
     });
 }
-
 
 
 /*
@@ -222,18 +224,11 @@ app.post('/auth/signup', function (req, res) {
     });
 });
 
-app.post('/upload', ensureAuthenticated, function (req, res, next) {
-    var handler = multer({
-        dest: './uploads/',
-        rename: function (fieldname, filename) {
-            return filename.replace(/\W+/g, '-').toLowerCase() + Date.now()
-        },
-        onFileUploadComplete: function (file) {
-            User.update({_id: req.user}, {photo: file.fileName}, function(err, user) {
-            });
-        }
+app.post('/uploadPhoto', ensureAuthenticated, populateUser, function (req, res, next) {
+    User.update({_id: req.user}, {photo: req.body.photo}, function (err, affected, user) {
+        req.userInfo.photo = req.body.photo;
+        res.status(200).send(req.userInfo);
     });
-    handler(req, res, next);
 });
 
 app.get('/searchFriend', ensureAuthenticated, function (req, res) {
@@ -255,6 +250,15 @@ app.get('/getUsers', ensureAuthenticated, function (req, res) {
             console.log(err);
             res.status(400).send(err);
         }
+    });
+});
+
+app.get('/getFriendList', ensureAuthenticated, function (req, res) {
+    User.findById(req.user, function (err, user) {
+        var friends = user.friends;
+        User.find({_id: { $in: friends}}, {displayName: 1, email: 1}, function (err, fr) {
+            res.status(200).send(fr);
+        });
     });
 });
 
@@ -280,17 +284,22 @@ app.post('/addFriend', ensureAuthenticated, populateUser, function (req, res) {
 });
 
 app.post('/checkIn', ensureAuthenticated, populateUser, function (req, res) {
+    console.log(req.userInfo);
     var checkIn = new CheckIn({
         placeId: req.body.id,
         placeName: req.body.name,
         lat: req.body.lat,
         lng: req.body.lng,
         userId: req.userInfo._id,
+        userName: req.userInfo.displayName,
+        userEmail: req.userInfo.email,
+        userPhoto: req.userInfo.photo,
         comment: req.body.comment,
         likes: [],
         date: new Date()
     });
 
+    console.log(checkIn);
     checkIn.save(function () {
         res.status(200).send("OK");
     });
@@ -330,14 +339,8 @@ app.post('/getCheckInList', ensureAuthenticated, populateUser, function (req, re
     var lngNE = req.body.lngNE;
 
     var friends = req.userInfo.friends;
-    console.log(friends);
     CheckIn.find({lat: {$gt: latSW, $lt: latNE}, lng: {$gt: lngSW, $lt: lngNE}, userId: {$in: friends}}, function (err, result) {
         if (!err) {
-            for (var c in results) {
-                User.find({_id: c.userId}, function (err, result) {
-                    c.photo = result.photo;
-                });
-            }
             res.status(200).send(result);
         } else {
             console.log(err);
