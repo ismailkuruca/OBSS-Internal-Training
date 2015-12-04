@@ -49,7 +49,7 @@ var userSchema = new mongoose.Schema({
     facebook: String,
     friends: [String],
     photo: String,
-    saved: [CheckIn]
+    saved: [String]
 });
 
 userSchema.pre('save', function (next) {
@@ -305,18 +305,26 @@ app.post('/checkIn', ensureAuthenticated, populateUser, function (req, res) {
     });
 });
 
-app.post('/like', ensureAuthenticated, populateUser, function (req, res) {
+app.post('/likeCheckIn', ensureAuthenticated, populateUser, function (req, res) {
     CheckIn.findOne({_id: req.body.id}, function (err, checkIn) {
         if (checkIn) {
             var likes = checkIn.likes;
             var flag = true;
+            var ind = -1;
             for (var i = 0; i < likes.length; i++) {
                 if (likes[i] == req.userInfo.email) {
                     flag = false;
+                    ind = i;
                 }
             }
-            if (flag && checkIn.userId != req.userInfo._id) {
-                likes.push(req.userInfo.email);
+            if (checkIn.userId != req.userInfo._id) {
+                if (flag) {
+                    likes.push(req.userInfo.email);
+                } else {
+                    if (i != -1) {
+                        likes.splice(ind, 1);
+                    }
+                }
             }
             CheckIn.update({_id: req.body.id}, {
                 likes: likes
@@ -349,11 +357,23 @@ app.post('/getCheckInList', ensureAuthenticated, populateUser, function (req, re
     });
 });
 
+app.get('/getSavedList', ensureAuthenticated, populateUser, function (req, res) {
+    var list = req.userInfo.saved;
+    CheckIn.find({_id: {$in: list}}, function (err, results) {
+        if (!err) {
+            res.status(200).send(results);
+        } else {
+            console.log(err);
+            res.status(400).send(err);
+        }
+    });
+});
+
 app.post('/saveCheckIn', ensureAuthenticated, populateUser, function (req, res) {
     CheckIn.findOne({_id: req.body.id}, function (err, checkIn) {
         if (!err) {
             User.update({_id: req.userInfo._id}, {
-                $addToSet: {saved: checkIn}
+                $addToSet: {saved: req.body.id}
             }, function (err, affected, user) {
                 if (!err) {
                     res.status(200).send(user);

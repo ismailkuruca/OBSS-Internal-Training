@@ -499,3 +499,7 @@ ul {
     color: lightblue !important;
     text-decoration: none !important;
 }
+
+.approved {
+    color: lightcoral;
+}

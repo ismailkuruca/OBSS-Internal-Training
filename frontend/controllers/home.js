@@ -1,8 +1,8 @@
 angular.module('MyApp')
-    .controller('HomeCtrl', function ($scope, $auth, uiGmapGoogleMapApi, uiGmapIsReady, $compile, $uibModal, Dashboard) {
+    .controller('HomeCtrl', function ($scope, $rootScope, $auth, uiGmapGoogleMapApi, uiGmapIsReady, $compile, $uibModal, Dashboard, Account) {
         $scope.boundsChangedEvent = null;
         $scope.placeMap = {};
-        $scope.elems = ["a","aa","baa"];
+        $scope.elems = ["a", "aa", "baa"];
 
         $scope.handleBoundsChanged = function (obj) {
             clearTimeout($scope.boundsChangedEvent);
@@ -16,11 +16,38 @@ angular.module('MyApp')
                     .then(function (response) {
                         console.log("CheckinList", response);
                         $scope.checkInList = response.data;
-                    }
-                    , function (error) {
+
+                        if (!$rootScope.currentUser) {
+                            Account.getCurrentUser().then(function (response) {
+                                $rootScope.currentUser = response.data;
+                                $scope.processResponse();
+                            });
+                        } else {
+                            $scope.processResponse();
+                        }
+                    }, function (error) {
                         //Error Handling
                     });
             }, 500);
+        };
+
+        $scope.processResponse = function () {
+            var list = $scope.checkInList;
+            var savedList = $rootScope.currentUser.saved;
+            for (var i = 0; i < list.length; i++) {
+                for (var j = 0; j < list[i].likes.length; j++) {
+                    if (list[i].likes[j] == $rootScope.currentUser.email) {
+                        list[i].liked = true;
+                    }
+                }
+                for (var j = 0; j < savedList.length; j++) {
+                    if (list[i] == savedList[j]) {
+                        list[i].saved = true;
+                    }
+                }
+            }
+            console.log($scope.checkInList);
+            console.log($rootScope.currentUser.saved);
         };
 
         uiGmapGoogleMapApi.then(function (maps) {
@@ -84,9 +111,47 @@ angular.module('MyApp')
 
         });
 
+        $scope.like = function (id) {
+            var list = $scope.checkInList;
+            for (var i = 0; i < list.length; i++) {
+                var elem = list[i];
+                if (elem._id == id) {
+                    Dashboard.likeCheckIn(id).then(function (success) {
+                        if (elem.liked) {
+                            elem.liked = false;
+                        } else {
+                            elem.liked = true;
+                        }
+                    }, function (error) {
+                        console.log(error);
+                    });
+                    break;
+                }
+            }
+        };
+
+        $scope.save = function (id) {
+            var list = $scope.checkInList;
+            for (var i = 0; i < list.length; i++) {
+                var elem = list[i];
+                if (elem._id == id) {
+                    Dashboard.saveCheckIn(id).then(function (success) {
+                        if (elem.saved) {
+                            elem.saved = false;
+                        } else {
+                            elem.saved = true;
+                        }
+                    }, function (error) {
+                        console.log(error);
+                    });
+                    break;
+                }
+            }
+        };
+
         $scope.animationsEnabled = true;
 
-        $scope.isAuthenticated = function() {
+        $scope.isAuthenticated = function () {
             return $auth.isAuthenticated();
         };
 
@@ -105,10 +170,10 @@ angular.module('MyApp')
             });
 
             modalInstance.result.then(function (data) {
-                Dashboard.checkIn(data).then(function(response) {
+                Dashboard.checkIn(data).then(function (response) {
                     console.log(response);
-                }, function(error) {
-                   // ERROR Handling
+                }, function (error) {
+                    // ERROR Handling
                 });
             }, function () {
                 $log.info('Modal dismissed at: ' + new Date());

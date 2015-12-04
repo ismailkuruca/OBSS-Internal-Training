@@ -14,8 +14,12 @@
                         <img ng-src="{{checkIn.userPhoto}}"/>
                     </div>
                     <div class="comment-text">
-                        <p class="" style="font-weight: bolder;">{{checkIn.userName}}</p> <p class="">{{checkIn.comment}}</p> <span
-                            class="date sub-text">on {{checkIn.date | date :'medium'}}</span>
+                        <p class="" style="font-weight: bolder;">{{checkIn.userName}}</p>
+
+                        <p class="">{{checkIn.comment}}</p> <span
+                            class="date sub-text icon ion-heart" ng-click="like(checkIn._id)" style="cursor: pointer;" ng-class="{'approved' : checkIn.liked}"> Like   </span><span
+                            class="sub-text icon ion-ribbon-b" ng-click="save(checkIn._id)" style="cursor: pointer;" ng-class="{'approved' : checkIn.saved}"> Save</span>
+                        <p><span class="sub-text"> on {{checkIn.date | date :'medium'}}</span></p>
                     </div>
                 </li>
             </ul>

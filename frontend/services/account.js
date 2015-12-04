@@ -13,7 +13,7 @@ angular.module('MyApp')
             getUserList: function () {
                 return $http.get(window.backendUrl + '/getUsers');
             },
-            getFriendList: function() {
+            getFriendList: function () {
                 return $http.get(window.backendUrl + '/getFriendList');
             },
             uploadPhoto: function (fd) {
@@ -65,11 +65,26 @@ angular.module('MyApp')
                     }
                 });
             },
-            saveCheckIn: function (id) {
-                return $http.post(window.backendUrl + '/saveCheckIn', id);
+            getSavedList: function () {
+                return $http.get(window.backendUrl + '/getSavedList');
             },
-            like: function (id) {
-                return $http.post(window.backendUrl + '/like', id);
+            saveCheckIn: function (id) {
+                return $http({
+                    method: 'POST',
+                    url: window.backendUrl + '/saveCheckIn',
+                    data: {
+                        id: id
+                    }
+                });
+            },
+            likeCheckIn: function (id) {
+                return $http({
+                    method: 'POST',
+                    url: window.backendUrl + '/likeCheckIn',
+                    data: {
+                        id: id
+                    }
+                });
             }
 
         }
