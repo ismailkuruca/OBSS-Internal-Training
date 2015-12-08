@@ -78,12 +78,12 @@ angular.module('MyApp')
                 $scope.open(id);
             };
 
-            $scope.acquireLocation = function() {
+            $scope.acquireLocation = function () {
                 Map.getLocation().then(function (response) {
                     $rootScope.position = response.coords;
-                    toastr.success('New Location: ' + response.coords.latitude + " " + response.coords.longitude);
-                    for(var i = 0; i < $scope.markers.length; i++) {
-                        if($scope.markers[i].myLocation) {
+                    //toastr.success('New Location: ' + response.coords.latitude + " " + response.coords.longitude);
+                    for (var i = 0; i < $scope.markers.length; i++) {
+                        if ($scope.markers[i].myLocation) {
                             $scope.markers.splice(i, 1);
                             break;
                         }
@@ -187,12 +187,12 @@ angular.module('MyApp')
             }
         };
 
-        $scope.onMarkerClicked = function(obj) {
+        $scope.onMarkerClicked = function (obj) {
             $scope.directionsService.route({
                 origin: new google.maps.LatLng($rootScope.position.latitude, $rootScope.position.longitude),
-                destination: new google.maps.LatLng(obj.coords.latitude, obj.   coords.longitude),
+                destination: new google.maps.LatLng(obj.coords.latitude, obj.coords.longitude),
                 travelMode: google.maps.TravelMode.DRIVING
-            }, function(response, status) {
+            }, function (response, status) {
                 if (status === google.maps.DirectionsStatus.OK) {
                     $scope.directionsDisplay.setDirections(response);
                 } else {
@@ -207,14 +207,18 @@ angular.module('MyApp')
             return $auth.isAuthenticated();
         };
 
-        $rootScope.$watch('openSaved', function(newVal, oldVal) {
-            if(newVal) {
+        $rootScope.$watch('openSaved', function (newVal, oldVal) {
+            if (newVal) {
                 $rootScope.openSaved = false;
-                $scope.openSavedModal();
+                Dashboard.getSavedList().then(function (response) {
+                    $rootScope.currentUser.savedCheckins = response.data;
+                    $scope.openSavedModal();
+                });
+
             }
         });
 
-        $scope.openSavedModal = function() {
+        $scope.openSavedModal = function () {
             var modalInstance = $uibModal.open({
                 animation: $scope.animationsEnabled,
                 templateUrl: 'partials/saved.html',
@@ -225,7 +229,8 @@ angular.module('MyApp')
                     }
                 }
             });
-            modalInstance.result.then(function (){
+            modalInstance.result.then(function (data) {
+                $scope.onMarkerClicked(data);
             });
         };
 
@@ -259,8 +264,16 @@ angular.module('MyApp')
         };
     })
     .controller('SavedModalInstanceCtrl', function ($scope, $uibModalInstance) {
-        $scope.ok = function () {
-            $uibModalInstance.close();
+        $scope.cancel = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
+
+        $scope.returnData = function (data) {
+            data.coords = {
+                latitude: data.lat,
+                longitude: data.lng
+            };
+            $uibModalInstance.close(data);
         };
     })
 
