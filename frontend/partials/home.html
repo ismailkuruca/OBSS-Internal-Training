@@ -2,6 +2,7 @@
     <ui-gmap-google-map events="map.events" control="map.control" center='map.center' zoom='map.zoom'>
         <input id="pac-input" class="controls" type="text"
                placeholder="Enter a Location">
+        <ui-gmap-marker ng-repeat="m in map.markers" coords="m.coords" icon="m.icon" idkey="m.id" click="onMarkerClicked(m)"></ui-gmap-marker>
     </ui-gmap-google-map>
 </div>
 <div class="col-sm-3" ng-if="isAuthenticated()">
@@ -17,8 +18,11 @@
                         <p class="" style="font-weight: bolder;">{{checkIn.userName}}</p>
 
                         <p class="">{{checkIn.comment}}</p> <span
-                            class="date sub-text icon ion-heart" ng-click="like(checkIn._id)" style="cursor: pointer;" ng-class="{'approved' : checkIn.liked}"> Like   </span><span
-                            class="sub-text icon ion-ribbon-b" ng-click="save(checkIn._id)" style="cursor: pointer;" ng-class="{'approved' : checkIn.saved}"> Save</span>
+                            class="date sub-text icon ion-heart" ng-click="like(checkIn._id)" style="cursor: pointer;"
+                            ng-class="{'approved' : checkIn.liked}"> Like   </span><span
+                            class="sub-text icon ion-ribbon-b" ng-click="save(checkIn._id)" style="cursor: pointer;"
+                            ng-class="{'approved' : checkIn.saved}"> Save</span>
+
                         <p><span class="sub-text"> on {{checkIn.date | date :'medium'}}</span></p>
                     </div>
                 </li>

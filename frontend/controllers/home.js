@@ -1,18 +1,17 @@
 angular.module('MyApp')
-    .controller('HomeCtrl', function ($scope, $rootScope, $auth, uiGmapGoogleMapApi, uiGmapIsReady, $compile, $uibModal, Dashboard, Account) {
+    .controller('HomeCtrl', function ($scope, $rootScope, $auth, uiGmapGoogleMapApi, uiGmapIsReady, $compile, $uibModal, Dashboard, Account, toastr, Map) {
         $scope.boundsChangedEvent = null;
         $scope.placeMap = {};
-        $scope.elems = ["a", "aa", "baa"];
-
+        $scope.markers = [];
         $scope.handleBoundsChanged = function (obj) {
             clearTimeout($scope.boundsChangedEvent);
             $scope.boundsChangedEvent = setTimeout(function () {
                 console.log(obj);
                 Dashboard.getCheckInList(
-                        obj.getBounds().getSouthWest().lat(),
-                        obj.getBounds().getSouthWest().lng(),
-                        obj.getBounds().getNorthEast().lat(),
-                        obj.getBounds().getNorthEast().lng())
+                    obj.getBounds().getSouthWest().lat(),
+                    obj.getBounds().getSouthWest().lng(),
+                    obj.getBounds().getNorthEast().lat(),
+                    obj.getBounds().getNorthEast().lng())
                     .then(function (response) {
                         console.log("CheckinList", response);
                         $scope.checkInList = response.data;
@@ -34,14 +33,27 @@ angular.module('MyApp')
         $scope.processResponse = function () {
             var list = $scope.checkInList;
             var savedList = $rootScope.currentUser.saved;
+            //$scope.markers = [];
+            //$scope.markers.push({
+            //    id: 0,
+            //    coords: $rootScope.position,
+            //    icon: '//developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
+            //});
             for (var i = 0; i < list.length; i++) {
+                $scope.markers.push({
+                    id: list[i].placeId,
+                    coords: {
+                        latitude: list[i].lat,
+                        longitude: list[i].lng
+                    }
+                });
                 for (var j = 0; j < list[i].likes.length; j++) {
                     if (list[i].likes[j] == $rootScope.currentUser.email) {
                         list[i].liked = true;
                     }
                 }
                 for (var j = 0; j < savedList.length; j++) {
-                    if (list[i] == savedList[j]) {
+                    if (list[i]._id == savedList[j]) {
                         list[i].saved = true;
                     }
                 }
@@ -52,7 +64,7 @@ angular.module('MyApp')
 
         uiGmapGoogleMapApi.then(function (maps) {
             $scope.map = {
-                control: {}, center: {latitude: 41.0136, longitude: 28.9550}, zoom: 15,
+                control: {}, center: {latitude: 41.0136, longitude: 28.9550}, zoom: 15, markers: $scope.markers,
                 events: {
                     bounds_changed: function (a) {
                         $scope.handleBoundsChanged(a);
@@ -66,6 +78,27 @@ angular.module('MyApp')
                 $scope.open(id);
             };
 
+            $scope.acquireLocation = function() {
+                Map.getLocation().then(function (response) {
+                    $rootScope.position = response.coords;
+                    toastr.success('New Location: ' + response.coords.latitude + " " + response.coords.longitude);
+                    for(var i = 0; i < $scope.markers.length; i++) {
+                        if($scope.markers[i].myLocation) {
+                            $scope.markers.splice(i, 1);
+                            break;
+                        }
+                    }
+                    $scope.markers.push({
+                        id: 0,
+                        coords: $rootScope.position,
+                        icon: '//developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
+                    });
+                }, function (error) {
+                    toastr.error('Couldn\'t acquire location. Application behavior might be unstable!');
+                });
+            };
+            $scope.acquireLocation();
+
             uiGmapIsReady.promise().then(function (maxp) {
                 var map = $scope.map.control.getGMap();
                 map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
@@ -74,6 +107,11 @@ angular.module('MyApp')
                     map: map,
                     anchorPoint: new google.maps.Point(0, -29)
                 });
+
+                $scope.directionsService = new google.maps.DirectionsService;
+                $scope.directionsDisplay = new google.maps.DirectionsRenderer;
+                $scope.directionsDisplay.setMap(map);
+
                 var autocomplete = new google.maps.places.Autocomplete(input);
                 autocomplete.bindTo('bounds', map);
                 autocomplete.addListener('place_changed', function () {
@@ -149,11 +187,48 @@ angular.module('MyApp')
             }
         };
 
+        $scope.onMarkerClicked = function(obj) {
+            $scope.directionsService.route({
+                origin: new google.maps.LatLng($rootScope.position.latitude, $rootScope.position.longitude),
+                destination: new google.maps.LatLng(obj.coords.latitude, obj.   coords.longitude),
+                travelMode: google.maps.TravelMode.DRIVING
+            }, function(response, status) {
+                if (status === google.maps.DirectionsStatus.OK) {
+                    $scope.directionsDisplay.setDirections(response);
+                } else {
+                    toastr.error('Directions request failed due to ' + status);
+                }
+            });
+        };
+
         $scope.animationsEnabled = true;
 
         $scope.isAuthenticated = function () {
             return $auth.isAuthenticated();
         };
+
+        $rootScope.$watch('openSaved', function(newVal, oldVal) {
+            if(newVal) {
+                $rootScope.openSaved = false;
+                $scope.openSavedModal();
+            }
+        });
+
+        $scope.openSavedModal = function() {
+            var modalInstance = $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: 'partials/saved.html',
+                controller: 'SavedModalInstanceCtrl',
+                size: 'md',
+                resolve: {
+                    place: function () {
+                    }
+                }
+            });
+            modalInstance.result.then(function (){
+            });
+        };
+
 
         $scope.open = function (place) {
 
@@ -176,7 +251,6 @@ angular.module('MyApp')
                     // ERROR Handling
                 });
             }, function () {
-                $log.info('Modal dismissed at: ' + new Date());
             });
         };
 
@@ -184,8 +258,13 @@ angular.module('MyApp')
             $scope.animationsEnabled = !$scope.animationsEnabled;
         };
     })
-    .
-    controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, place) {
+    .controller('SavedModalInstanceCtrl', function ($scope, $uibModalInstance) {
+        $scope.ok = function () {
+            $uibModalInstance.close();
+        };
+    })
+
+    .controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, place) {
         $scope.data = {
             id: place.id,
             name: place.name,
@@ -200,5 +279,5 @@ angular.module('MyApp')
         $scope.cancel = function () {
             $uibModalInstance.dismiss('cancel');
         };
-    });
+    })
 ;

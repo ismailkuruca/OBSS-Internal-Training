@@ -24,7 +24,27 @@ angular.module('MyApp')
                         photo: fd
                     }
                 });
-            }}
+            }
+        }
+    })
+    .factory('Map', function ($q, $http) {
+        var lastKnownLocation;
+        return {
+            getLocation: function () {
+                return $q(function (resolve, reject) {
+                    return navigator.geolocation.getCurrentPosition(function (pos) {
+                        lastKnownLocation = pos;
+                        resolve(pos);
+                    }, function (error) {
+                        if (lastKnownLocation) {
+                            resolve(lastKnownLocation);
+                        } else {
+                            reject(error);
+                        }
+                    }, {timeout: 10000});
+                });
+            }
+        };
     })
     .factory('Dashboard', function ($http) {
         return {

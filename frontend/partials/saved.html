@@ -1,0 +1,17 @@
+<div ng-controller="HomeCtrl">
+    <div class="modal-header">
+        <h3 class="modal-title">Your saved locations</h3>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="control-label"><i class="ion-person"></i>Friends</label>
+            <ul>
+                <li ng-repeat="saved in savedList" ng-click="goToLocation(saved)">{{saved.placeName}}</li>
+            </ul>
+
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+    </div>
+</div>

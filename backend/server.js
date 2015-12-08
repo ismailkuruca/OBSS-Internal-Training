@@ -256,7 +256,7 @@ app.get('/getUsers', ensureAuthenticated, function (req, res) {
 app.get('/getFriendList', ensureAuthenticated, function (req, res) {
     User.findById(req.user, function (err, user) {
         var friends = user.friends;
-        User.find({_id: { $in: friends}}, {displayName: 1, email: 1}, function (err, fr) {
+        User.find({_id: {$in: friends}}, {displayName: 1, email: 1}, function (err, fr) {
             res.status(200).send(fr);
         });
     });
@@ -287,7 +287,7 @@ app.post('/checkIn', ensureAuthenticated, populateUser, function (req, res) {
     console.log(req.userInfo);
     var checkIn = new CheckIn({
         placeId: req.body.id,
-        placeName: req.body.name,
+        placeName: req.body.placeName,
         lat: req.body.lat,
         lng: req.body.lng,
         userId: req.userInfo._id,
@@ -347,7 +347,11 @@ app.post('/getCheckInList', ensureAuthenticated, populateUser, function (req, re
     var lngNE = req.body.lngNE;
 
     var friends = req.userInfo.friends;
-    CheckIn.find({lat: {$gt: latSW, $lt: latNE}, lng: {$gt: lngSW, $lt: lngNE}, userId: {$in: friends}}, function (err, result) {
+    CheckIn.find({
+        lat: {$gt: latSW, $lt: latNE},
+        lng: {$gt: lngSW, $lt: lngNE},
+        userId: {$in: friends}
+    }, function (err, result) {
         if (!err) {
             res.status(200).send(result);
         } else {
@@ -372,22 +376,44 @@ app.get('/getSavedList', ensureAuthenticated, populateUser, function (req, res) 
 app.post('/saveCheckIn', ensureAuthenticated, populateUser, function (req, res) {
     CheckIn.findOne({_id: req.body.id}, function (err, checkIn) {
         if (!err) {
-            User.update({_id: req.userInfo._id}, {
-                $addToSet: {saved: req.body.id}
-            }, function (err, affected, user) {
-                if (!err) {
-                    res.status(200).send(user);
-                } else {
-                    console.log(err);
-                    res.status(400).send(err);
+            var savedList = req.userInfo.saved;
+            var saveFlag = true;
+            for (var i = 0; i < savedList.length; i++) {
+                if (req.body.id == savedList[i]) {
+                    saveFlag = false;
                 }
-            });
-        } else {
+            }
+            if (saveFlag) {
+                User.update({_id: req.userInfo._id}, {
+                    $addToSet: {saved: req.body.id}
+                }, function (err, affected, user) {
+                    if (!err) {
+                        res.status(200).send(user);
+                    } else {
+                        console.log(err);
+                        res.status(400).send(err);
+                    }
+                });
+            } else {
+                User.update({_id: req.userInfo._id}, {
+                    $pull: {saved: req.body.id}
+                }, function (err, affected, user) {
+                    if (!err) {
+                        res.status(200).send(user);
+                    } else {
+                        console.log(err);
+                        res.status(400).send(err);
+                    }
+                });
+            }
+        }
+        else {
             console.log(err);
             res.status(400).send(err);
         }
     });
-});
+})
+;
 
 /*
  |--------------------------------------------------------------------------
